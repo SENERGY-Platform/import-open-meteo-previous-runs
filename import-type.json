@@ -1,0 +1,291 @@
+{
+  "id": "",
+  "name": "Open-Meteo forecast archive (previous runs)",
+  "description": "Archived Open-Meteo weather forecasts as they were issued, from the Previous Runs API: one message per forecast hour and lead day, published at its issue time (time = issued_at = forecasted_for minus lead_days). Backfills from start, then continues hourly. Data: Open-Meteo, CC BY 4.0.",
+  "image": "ghcr.io/senergy-platform/import-open-meteo-previous-runs:prod",
+  "default_restart": true,
+  "configs": [
+    {
+      "name": "lat",
+      "description": "Coordinate latitude",
+      "type": "https://schema.org/Float",
+      "default_value": 51.34
+    },
+    {
+      "name": "long",
+      "description": "Coordinate longitude",
+      "type": "https://schema.org/Float",
+      "default_value": 12.38
+    },
+    {
+      "name": "start",
+      "description": "First issue date to backfill, YYYY-MM-DD. Most models are available from 2024-01-01.",
+      "type": "https://schema.org/Text",
+      "default_value": "2024-01-01"
+    },
+    {
+      "name": "lead_days",
+      "description": "Lead times in days, each 1 to 7. lead_days 2 is safe for a day-ahead forecast; 1 can be slightly optimistic because the model run may have been published after the nominal issue time.",
+      "type": "https://schema.org/ItemList",
+      "default_value": [
+        1,
+        2
+      ]
+    },
+    {
+      "name": "model",
+      "description": "One Open-Meteo model, e.g. icon_seamless or ecmwf_ifs025. best_match lets Open-Meteo choose per location.",
+      "type": "https://schema.org/Text",
+      "default_value": "best_match"
+    },
+    {
+      "name": "apikey",
+      "description": "Optional commercial Open-Meteo API key; empty uses the free, non-commercial API.",
+      "type": "https://schema.org/Text",
+      "default_value": ""
+    }
+  ],
+  "output": {
+    "name": "root",
+    "type": "https://schema.org/StructuredValue",
+    "characteristic_id": "",
+    "sub_content_variables": [
+      {
+        "name": "import_id",
+        "type": "https://schema.org/Text",
+        "characteristic_id": "",
+        "sub_content_variables": null,
+        "use_as_tag": false
+      },
+      {
+        "name": "time",
+        "type": "https://schema.org/Text",
+        "characteristic_id": "urn:infai:ses:characteristic:6bc41b45-a9f3-4d87-9c51-dd3e11257800",
+        "sub_content_variables": null,
+        "use_as_tag": false,
+        "function_id": "urn:infai:ses:measuring-function:3b4e0766-0d67-4658-b249-295902cd3290",
+        "aspect_ids": [
+          "urn:infai:ses:aspect:a14c5efb-b0b6-46c3-982e-9fded75b5ab6",
+          "urn:infai:ses:aspect:6eb3fb38-3592-4e2c-b2e2-5e303ddc55c0"
+        ]
+      },
+      {
+        "name": "value",
+        "type": "https://schema.org/StructuredValue",
+        "characteristic_id": "",
+        "sub_content_variables": [
+          {
+            "name": "forecasted_for",
+            "type": "https://schema.org/Text",
+            "characteristic_id": "urn:infai:ses:characteristic:6bc41b45-a9f3-4d87-9c51-dd3e11257800",
+            "sub_content_variables": null,
+            "use_as_tag": true,
+            "function_id": "urn:infai:ses:measuring-function:3b4e0766-0d67-4658-b249-295902cd3290",
+            "aspect_ids": [
+              "urn:infai:ses:aspect:a14c5efb-b0b6-46c3-982e-9fded75b5ab6",
+              "urn:infai:ses:aspect:6eb3fb38-3592-4e2c-b2e2-5e303ddc55c0"
+            ]
+          },
+          {
+            "name": "issued_at",
+            "type": "https://schema.org/Text",
+            "characteristic_id": "urn:infai:ses:characteristic:6bc41b45-a9f3-4d87-9c51-dd3e11257800",
+            "sub_content_variables": null,
+            "use_as_tag": false
+          },
+          {
+            "name": "lead_days",
+            "type": "https://schema.org/Integer",
+            "characteristic_id": "urn:infai:ses:characteristic:fe812f4f-3dba-4d53-b1fb-5e1f97d88a10",
+            "sub_content_variables": null,
+            "use_as_tag": true,
+            "function_id": "urn:infai:ses:measuring-function:5692b87e-5377-4738-be33-762322fdc62e"
+          },
+          {
+            "name": "shortwave_radiation",
+            "type": "https://schema.org/Float",
+            "characteristic_id": "urn:infai:ses:characteristic:a03ef4d9-cee5-4c4c-b797-e813db59dde5",
+            "sub_content_variables": null,
+            "use_as_tag": false,
+            "function_id": "urn:infai:ses:measuring-function:5f0951e8-ed8c-4494-b534-6e5382fd92d8",
+            "aspect_ids": [
+              "urn:infai:ses:aspect:a14c5efb-b0b6-46c3-982e-9fded75b5ab6",
+              "urn:infai:ses:aspect:6eb3fb38-3592-4e2c-b2e2-5e303ddc55c0"
+            ]
+          },
+          {
+            "name": "direct_radiation",
+            "type": "https://schema.org/Float",
+            "characteristic_id": "urn:infai:ses:characteristic:a03ef4d9-cee5-4c4c-b797-e813db59dde5",
+            "sub_content_variables": null,
+            "use_as_tag": false,
+            "function_id": "urn:infai:ses:measuring-function:5f0951e8-ed8c-4494-b534-6e5382fd92d8",
+            "aspect_ids": [
+              "urn:infai:ses:aspect:a14c5efb-b0b6-46c3-982e-9fded75b5ab6",
+              "urn:infai:ses:aspect:6eb3fb38-3592-4e2c-b2e2-5e303ddc55c0"
+            ]
+          },
+          {
+            "name": "diffuse_radiation",
+            "type": "https://schema.org/Float",
+            "characteristic_id": "urn:infai:ses:characteristic:a03ef4d9-cee5-4c4c-b797-e813db59dde5",
+            "sub_content_variables": null,
+            "use_as_tag": false,
+            "function_id": "urn:infai:ses:measuring-function:5f0951e8-ed8c-4494-b534-6e5382fd92d8",
+            "aspect_ids": [
+              "urn:infai:ses:aspect:a14c5efb-b0b6-46c3-982e-9fded75b5ab6",
+              "urn:infai:ses:aspect:6eb3fb38-3592-4e2c-b2e2-5e303ddc55c0"
+            ]
+          },
+          {
+            "name": "direct_normal_irradiance",
+            "type": "https://schema.org/Float",
+            "characteristic_id": "urn:infai:ses:characteristic:a03ef4d9-cee5-4c4c-b797-e813db59dde5",
+            "sub_content_variables": null,
+            "use_as_tag": false,
+            "function_id": "urn:infai:ses:measuring-function:5f0951e8-ed8c-4494-b534-6e5382fd92d8",
+            "aspect_ids": [
+              "urn:infai:ses:aspect:a14c5efb-b0b6-46c3-982e-9fded75b5ab6",
+              "urn:infai:ses:aspect:6eb3fb38-3592-4e2c-b2e2-5e303ddc55c0"
+            ]
+          },
+          {
+            "name": "cloud_cover",
+            "type": "https://schema.org/Float",
+            "characteristic_id": "urn:infai:ses:characteristic:46f808f4-bb9e-4cc2-bd50-dc33ca74f273",
+            "sub_content_variables": null,
+            "use_as_tag": false,
+            "function_id": "urn:infai:ses:measuring-function:87709727-53c7-417c-8072-6a50cc3bbf1d",
+            "aspect_ids": [
+              "urn:infai:ses:aspect:a14c5efb-b0b6-46c3-982e-9fded75b5ab6",
+              "urn:infai:ses:aspect:6eb3fb38-3592-4e2c-b2e2-5e303ddc55c0"
+            ]
+          },
+          {
+            "name": "temperature_2m",
+            "type": "https://schema.org/Float",
+            "characteristic_id": "urn:infai:ses:characteristic:5ba31623-0ccb-4488-bfb7-f73b50e03b5a",
+            "sub_content_variables": null,
+            "use_as_tag": false,
+            "function_id": "urn:infai:ses:measuring-function:d19ffeb0-877c-4611-951c-b3fc37d9b9ba",
+            "aspect_ids": [
+              "urn:infai:ses:aspect:a14c5efb-b0b6-46c3-982e-9fded75b5ab6",
+              "urn:infai:ses:aspect:6eb3fb38-3592-4e2c-b2e2-5e303ddc55c0"
+            ]
+          },
+          {
+            "name": "relative_humidity_2m",
+            "type": "https://schema.org/Float",
+            "characteristic_id": "urn:infai:ses:characteristic:46f808f4-bb9e-4cc2-bd50-dc33ca74f273",
+            "sub_content_variables": null,
+            "use_as_tag": false,
+            "function_id": "urn:infai:ses:measuring-function:53bb96e5-1fb1-4409-89a6-ae6c7332eae4",
+            "aspect_ids": [
+              "urn:infai:ses:aspect:a14c5efb-b0b6-46c3-982e-9fded75b5ab6",
+              "urn:infai:ses:aspect:6eb3fb38-3592-4e2c-b2e2-5e303ddc55c0"
+            ]
+          },
+          {
+            "name": "precipitation",
+            "type": "https://schema.org/Float",
+            "characteristic_id": "urn:infai:ses:characteristic:7424a147-fb0e-4e71-a666-6c4997928e61",
+            "sub_content_variables": null,
+            "use_as_tag": false,
+            "function_id": "urn:infai:ses:measuring-function:61ebe348-6abc-4e14-911c-0908bd7ba1f8",
+            "aspect_ids": [
+              "urn:infai:ses:aspect:b8b3b549-3b01-4604-a727-20aa528c21c9",
+              "urn:infai:ses:aspect:6eb3fb38-3592-4e2c-b2e2-5e303ddc55c0"
+            ]
+          },
+          {
+            "name": "wind_speed_10m",
+            "type": "https://schema.org/Float",
+            "characteristic_id": "urn:infai:ses:characteristic:becfc22a-7f24-44df-9a46-45acebc56d00",
+            "sub_content_variables": null,
+            "use_as_tag": false,
+            "function_id": "urn:infai:ses:measuring-function:3d94cec5-50d9-4b16-a2d7-568654f0f884",
+            "aspect_ids": [
+              "urn:infai:ses:aspect:a14c5efb-b0b6-46c3-982e-9fded75b5ab6",
+              "urn:infai:ses:aspect:6eb3fb38-3592-4e2c-b2e2-5e303ddc55c0"
+            ]
+          },
+          {
+            "name": "units",
+            "type": "https://schema.org/StructuredValue",
+            "characteristic_id": "",
+            "sub_content_variables": [
+              {
+                "name": "shortwave_radiation",
+                "type": "https://schema.org/Text",
+                "characteristic_id": "",
+                "sub_content_variables": null,
+                "use_as_tag": false
+              },
+              {
+                "name": "direct_radiation",
+                "type": "https://schema.org/Text",
+                "characteristic_id": "",
+                "sub_content_variables": null,
+                "use_as_tag": false
+              },
+              {
+                "name": "diffuse_radiation",
+                "type": "https://schema.org/Text",
+                "characteristic_id": "",
+                "sub_content_variables": null,
+                "use_as_tag": false
+              },
+              {
+                "name": "direct_normal_irradiance",
+                "type": "https://schema.org/Text",
+                "characteristic_id": "",
+                "sub_content_variables": null,
+                "use_as_tag": false
+              },
+              {
+                "name": "cloud_cover",
+                "type": "https://schema.org/Text",
+                "characteristic_id": "",
+                "sub_content_variables": null,
+                "use_as_tag": false
+              },
+              {
+                "name": "temperature_2m",
+                "type": "https://schema.org/Text",
+                "characteristic_id": "",
+                "sub_content_variables": null,
+                "use_as_tag": false
+              },
+              {
+                "name": "relative_humidity_2m",
+                "type": "https://schema.org/Text",
+                "characteristic_id": "",
+                "sub_content_variables": null,
+                "use_as_tag": false
+              },
+              {
+                "name": "precipitation",
+                "type": "https://schema.org/Text",
+                "characteristic_id": "",
+                "sub_content_variables": null,
+                "use_as_tag": false
+              },
+              {
+                "name": "wind_speed_10m",
+                "type": "https://schema.org/Text",
+                "characteristic_id": "",
+                "sub_content_variables": null,
+                "use_as_tag": false
+              }
+            ],
+            "use_as_tag": false
+          }
+        ],
+        "use_as_tag": false
+      }
+    ],
+    "use_as_tag": false
+  },
+  "owner": "",
+  "cost": 0
+}
