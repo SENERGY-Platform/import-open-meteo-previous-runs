@@ -69,7 +69,7 @@ Example (`lead_days = 1`):
 * start (string): first issue date, YYYY-MM-DD. Default: today minus 365 days. Most models are available from January 2024.
 * lead_days (list of int): leads in days, each 1 to 7. Default: [1, 2]
 * model (string): one Open-Meteo model. Default: `best_match`; passed as `models` only when different.
-* apikey (string, optional): commercial Open-Meteo key. When set, `customer-previous-runs-api.open-meteo.com` is used and the key is sent as `apikey`.
+* apikey (string, optional): commercial Open-Meteo key. When set to a non-blank value, `customer-previous-runs-api.open-meteo.com` is used and the key is sent as `apikey`.
 
 ## Behaviour
 

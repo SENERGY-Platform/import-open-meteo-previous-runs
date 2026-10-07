@@ -244,6 +244,13 @@ def test_config_passthrough(monkeypatch):
     assert calls[0][2:] == ([3], 'icon_d2', 'k')
 
 
+def test_blank_apikey_uses_free_api(monkeypatch):
+    now = utc(2026, 1, 10, 12, 3)
+    lib = FakeLib({'start': '2026-01-10', 'apikey': ' '})
+    _, calls, _ = make(lib, now, lambda *a: [], monkeypatch)
+    assert calls[0][4] is None
+
+
 # --- retry and scheduling
 
 def build_failing(monkeypatch, exc, ok_after=None):

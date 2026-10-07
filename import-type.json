@@ -40,9 +40,9 @@
     },
     {
       "name": "apikey",
-      "description": "Optional commercial Open-Meteo API key; empty uses the free, non-commercial API.",
+      "description": "Optional commercial Open-Meteo API key; blank uses the free, non-commercial API.",
       "type": "https://schema.org/Text",
-      "default_value": ""
+      "default_value": " "
     }
   ],
   "output": {

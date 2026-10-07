@@ -115,7 +115,8 @@ class OpenMeteoPreviousRunsImport:
         self.__model = str(self.__lib.get_config("model", DEFAULT_MODEL))
         if self.__model == '' or ',' in self.__model:
             raise ValueError("model must name exactly one model")
-        self.__apikey = self.__lib.get_config("apikey", None) or None
+        # The UI demands a value for every config, so the default is a blank; blank means the free API.
+        self.__apikey = str(self.__lib.get_config("apikey", None) or '').strip() or None
         self.__watermark: Optional[Key] = self.__read_watermark()
         self.import_current_with_retry()
 
